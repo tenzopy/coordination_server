@@ -21,4 +21,4 @@ async def main(request: Request):
     }
 
 if __name__ == '__main__':
-    uvicorn.run(app,port=8000,host='100.73.159.142')
+    uvicorn.run(app,port=80)
