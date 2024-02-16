@@ -2,6 +2,7 @@ from typing import Union
 from fastapi import Request
 import uvicorn
 from fastapi import FastAPI
+import requests
 
 app = FastAPI()
 
@@ -20,5 +21,13 @@ async def main(request: Request):
         'hosts': list_of_nodes,
     }
 
+@app.get("/ping")
+def main(request: Request):
+    for url in list_of_nodes:
+        try:
+            requests.head('http://'+url+':8000/')
+        except requests.exceptions.ConnectionError:
+            list_of_nodes.remove(url)
+
 if __name__ == '__main__':
-    uvicorn.run(app,port=80,host='0.0.0.0')
+    uvicorn.run(app,host='100.73.159.142',port=8001)
